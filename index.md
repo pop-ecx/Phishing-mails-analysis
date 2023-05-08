@@ -24,7 +24,7 @@ the relevant security information. Aside from the 'From' header, phishtool didn'
 however was the attachment. I quickly extracted the attachment using emlAnalyzer. A quick look at the contents of the attachment revealed 
 base64 encoded javascript. The atob() gave it away, right?
 
-![Base64 encoded javascript](/pop-ecx/Phishing-mails-analysis/blob/main/Screenshot5.png)
+![Base64 encoded javascript](/Phishing-mails-analysis/Screenshot5.png)
 
 The `url_string` variable was an actual email address, the intended target of the attack.
 
@@ -35,20 +35,20 @@ intriguing. The code was not obfuscated in any sense giving me a relatively easy
 was js code that blocked the use of developer tools, inspect element and view page source once the html is opened in a browser. 
 That's neat. This was to deter any analysis effort by the potential victim.
 
-![Code to block common shortcuts to developer tools](/pop-ecx/Phishing-mails-analysis/blob/main/Screenshot1.png)
+![Code to block common shortcuts to developer tools](/Phishing-mails-analysis/Screenshot1.png)
 
 Continuing through the code, another interesting script block is found. This time this is a lengthy
 block that defines the set_brand function.
 
-![The set_brand function](/pop-ecx/Phishing-mails-analysis/blob/main/Screenshot2.png)
+![The set_brand function](/Phishing-mails-analysis/Screenshot2.png)
 
 This function just sets the 'visuals' or rather the display of the page. We do have another interesting function though: the send_result function.
 
-![The send_result function](/pop-ecx/Phishing-mails-analysis/blob/main/Screenshot3.png)
+![The send_result function](/Phishing-mails-analysis/Screenshot3.png)
 
 The send_result defines the data to be sent, url to be sent to and the method used. In this case POST is used to send data to the url.
 
-![](/pop-ecx/Phishing-mails-analysis/blob/main/Screenshot4.png)
+![](/Phishing-mails-analysis/Screenshot4.png)
 
 The rest of the code does a couple of interesting things. It first waits for the entire html document to load and sets up a listener. Then, 
 it checks if the password length is less than 5. If it is, it complains about the password being too short. If the password length is greater than 5
@@ -61,7 +61,7 @@ The attacker's url has a .php file meaning we could safely assume the credential
 and see how it behaves. I'll leave that as an exercise to the reader. So this is a credential harvester attack. It seems the threat actor takes the victim's password as 
 long as it's above five characters, and just to be sure asks the victims to confirm it by pretending it's incorrect. So this is how the phishing page looks like:
 
-![Phishing page](/pop-ecx/Phishing-mails-analysis/blob/main/Screenshot6.png)
+![Phishing page](/pop-ecx/Phishing-mails-analysis/Screenshot6.png)
 
 I don't think this is a very convincing phishing page, but that's just me. To stay safe from such attacks, do not open email attachments in unsolicited emails,
 change your passwords often and most importantly use 2FA. It can also be useful to get another pair of eyes, especially cybersecurity-trained ones.
